@@ -106,7 +106,17 @@ def renameProcess(args, tuples):
 
 
 def escTitle(args, title):
-    return title.replace('?', '_').replace(':', '_').replace('&', '_').replace('!', '_').replace('"', '')
+    replaces = {'?': '_',
+                ':': '_',
+                '&': '_',
+                '!': '_',
+                '"': '',
+                '“': '',
+                '”': ''}
+    val = ''.join(map(lambda ch: replaces.get(ch, ch), title))
+    if args.verbose > 2:
+        print("escTitle(%s) = '%s'" % (title, val))
+    return val
 
 
 if __name__ == "__main__":
