@@ -98,7 +98,7 @@ def renameProcess(args, tuples):
                 if x == 'y' and not args.dryRun:
                     path.rename(newPath)
             else:
-                print("%60s -> %s" % (path, newPath))
+                print("Renaming %60s -> %s" % (path, newPath))
                 if not args.dryRun:
                     path.rename(newPath)
 
@@ -112,12 +112,18 @@ def escTitle(args, title):
                 ':': '_',
                 '&': '_',
                 '!': '_',
+                '’': '_',
+                "'": '_',
+                ';': '_',
                 '"': '',
                 '“': '',
-                '”': ''}
+                '”': '',
+                '—': '-',
+                '.': '',
+                "\u200b": ''}
     val = ''.join(map(lambda ch: replaces.get(ch, ch), title))
     if args.verbose > 2:
-        print("escTitle(%s) = '%s'" % (title, val))
+        print("escTitle(%s) = '%s'" % (title, repr(val)))
     return val
 
 
