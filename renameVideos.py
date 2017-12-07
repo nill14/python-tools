@@ -38,6 +38,8 @@ def parseArgs():
                         help='Print some extra information. (-v -vv -vvv) is supported.')
     parser.add_argument("--glob", default="**/*.mp4",
                         help="Glob to search videos, by default '**/*.mp4'.")
+    parser.add_argument("--tag", default="QuickTime:Title",
+                        help="EXIF tag to retrieve the title (e.g. QuickTime:Title for videos or ID3:Title for mp3). Defaults to QuickTime:Title")
     parser.add_argument('-i', "--interactive", action="store_true",
                         help='Confirm each rename operation.')
     parser.add_argument('-n', "--dry-run", action="store_true", dest='dryRun',
@@ -62,7 +64,7 @@ class Element:
 def collectData(args, metadata):
     for data in metadata:
         newPath = None
-        title = data.get("QuickTime:Title")
+        title = data.get(args.tag)
         sourceFile = data["SourceFile"]
         path = Path(sourceFile)
         if (title is not None):
